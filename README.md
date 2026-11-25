@@ -1,27 +1,43 @@
-# ChessMind AI (Android starter)
 
-Starter project for Xiaomi / Android 15+ using Kotlin, Jetpack Compose and a local Stockfish UCI engine.
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+}
 
-## Build
-1. Open this folder in Android Studio (Ladybug or newer).
-2. Let Gradle sync.
-3. Add a compatible **Android ARM64** Stockfish executable at:
-   `app/src/main/assets/stockfish/stockfish`
-4. Build > Build Bundle(s) / APK(s) > Build APK(s).
-5. Install the debug APK on your phone.
+android {
+    namespace = "com.chessmind.ai"
+    compileSdk = 35
 
-## Stockfish
-The engine binary is intentionally not bundled. Download/build an Android ARM64 binary from the official Stockfish project:
-https://stockfishchess.org/
-Stockfish is GPL-licensed. If you distribute an app containing it, comply with the applicable GPL requirements, including providing corresponding source and license notices.
+    defaultConfig {
+        applicationId = "com.chessmind.ai"
+        minSdk = 26
+        targetSdk = 35
+        versionCode = 1
+        versionName = "0.1.0"
+    }
 
-## Current scope
-- FEN position input
-- Local UCI engine integration
-- MultiPV candidate lines (three principal variations)
-- Adjustable search depth
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 
-The displayed lines are candidate continuations, not calibrated probabilities of what an opponent will play. The app does not connect to Chess.com, read live boards, or make moves for a player. Use it for study and analysis outside live rated games.
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 
-## Notes
-This is a starter project, not a signed production APK. A full chessboard editor, robust FEN validation, engine lifecycle management, and device-specific performance testing are still needed.
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
+    implementation("androidx.activity:activity-compose:1.10.0")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+
+    debugImplementation("androidx.compose.ui:ui-tooling")
+}
